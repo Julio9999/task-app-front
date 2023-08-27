@@ -1,6 +1,7 @@
 "use client"
 import FormValidationError from '@/components/common/FormValidationError'
 import { useLoginForm } from '@/hooks/useLoginForm'
+import { useRegisterForm } from '@/hooks/useRegisterForm'
 import { ErrorMessage } from '@hookform/error-message'
 import { Button, Card, CardContent, CardHeader, Container, TextField } from '@mui/material'
 import Link from 'next/link'
@@ -10,7 +11,7 @@ import { Toaster } from 'react-hot-toast';
 
 export default function Index() {
 
-  const { handleSubmit, methods } = useLoginForm()
+  const { handleSubmit, methods } = useRegisterForm()
 
 
   return (
@@ -19,7 +20,7 @@ export default function Index() {
       <Card>
         <CardContent>
           <form className='loginForm' onSubmit={methods.handleSubmit(handleSubmit)} >
-            <h1>Iniciar Sesion</h1>
+            <h1>Registrarte</h1>
             <Container sx={{ marginBottom: '2rem', display: 'flex', flexDirection: 'column' }}>
 
               <Controller name='email' control={methods.control} render={({ field }) => (
@@ -52,9 +53,9 @@ export default function Index() {
 
 
             <Button variant="contained" type='submit' color="primary">
-              Iniciar Sesion
+              Registrarte
             </Button>
-            <Link href={"/register"}>Registrarte</Link>
+            <Link href={"/login"}>Iniciar Sesion</Link>
 
           </form>
         </CardContent>

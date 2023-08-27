@@ -1,12 +1,12 @@
 import { loginSchema } from "@/helpers/validations/login/loginSchema"
 import { userData } from "@/interfaces/login"
-import { login } from "@/services/loginService"
+import { signup } from "@/services/loginService"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
 import toast from 'react-hot-toast';
 
-export const useLoginForm = () => {
+export const useRegisterForm = () => {
 
     const router = useRouter()
 
@@ -15,20 +15,19 @@ export const useLoginForm = () => {
         resolver: yupResolver(loginSchema),
         defaultValues: loginSchema.cast({})
     })
-    
-    const handleSubmit = async(userData: userData) => {
-        try{
-            const res = await login(userData)
-            if(res?.data.message == "Logged in succesfully"){
+
+    const handleSubmit = async (userData: userData) => {
+        try {
+            const res = await signup(userData)
+            console.log(res)
+            if (res?.data.message == "Signup succes") {
                 toast.success('Todo correcto pleb!.')
-                setTimeout(()=> {
+                setTimeout(() => {
                     router.push('/')
                 }, 1000)
             }
-        }catch(error:any){
-            if(error.response?.data?.message == "Wrong credentials"){
-                toast.error('Email o contraseña invalidos!.')
-            }
+        } catch (error: any) {
+            toast.error('No se pudo procesar la solicitud!.')
         }
     }
 
